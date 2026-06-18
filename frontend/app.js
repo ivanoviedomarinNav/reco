@@ -138,5 +138,67 @@ document.getElementById('spaceForm').addEventListener('submit', async (e) => {
     }
 });
 
+// ===== RESERVATIONS =====
+
+function renderReservations(reservations) {
+    const tbody = document.getElementById('reservationsTableBody');
+    if (!reservations || reservations.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">No hay reservaciones registradas</td></tr>';
+        return;
+    }
+    tbody.innerHTML = reservations.map(r => `
+        <tr>
+            <td>${r.id}</td>
+            <td>${r.user ? r.user.name + ' (' + r.user.email + ')' : '-'}</td>
+            <td>${r.space ? r.space.name : '-'}</td>
+            <td>${r.startDate ? new Date(r.startDate).toLocaleString() : '-'}</td>
+            <td>${r.endDate ? new Date(r.endDate).toLocaleDateString() : '-'}</td>
+            <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+        </tr>
+    `).join('');
+}
+
+async function loadReservations() {
+    const tbody = document.getElementById('reservationsTableBody');
+    try {
+        const text = await apiFetch('/reservations/all');
+        const reservations = JSON.parse(text);
+        renderReservations(reservations);
+    } catch {
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">Error al cargar reservaciones</td></tr>';
+    }
+}
+
+document.getElementById('reservationForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+        userEmail: form.userEmail.value.trim(),
+        spaceId: parseInt(form.spaceId.value),
+        startDate: form.startDate.value,
+        endDate: form.endDate.value || null,
+    };
+
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = 'Reservando...';
+
+    try {
+        await apiFetch('/reservations/add', {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        showFeedback('Reservación creada exitosamente', 'success');
+        form.reset();
+        loadReservations();
+    } catch (err) {
+        showFeedback(err.message, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Crear Reservación';
+    }
+});
+
 loadUsers();
 loadSpaces();
+loadReservations();

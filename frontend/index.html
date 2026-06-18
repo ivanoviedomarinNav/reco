@@ -111,6 +111,50 @@
                 </table>
             </div>
         </section>
+
+        <section class="card">
+            <h2>Reservar Espacio</h2>
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label for="reservationUserEmail">Correo del usuario</label>
+                    <input type="email" id="reservationUserEmail" name="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="reservationSpaceId">ID del espacio</label>
+                    <input type="number" id="reservationSpaceId" name="spaceId" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="reservationStartDate">Fecha y hora de inicio</label>
+                    <input type="datetime-local" id="reservationStartDate" name="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="reservationEndDate">Fecha de fin (opcional)</label>
+                    <input type="date" id="reservationEndDate" name="endDate">
+                </div>
+                <button type="submit">Crear Reservación</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Reservaciones</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Espacio</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservationsTableBody">
+                        <tr><td colspan="6" class="loading">Cargando reservaciones...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <footer>

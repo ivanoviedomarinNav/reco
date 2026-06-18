@@ -13,13 +13,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "user_email")
+    @JoinColumn(name = "user_email", referencedColumnName = "email")
     private User user;
     @ManyToOne
     @JoinColumn(name = "space_id")
     private Space space;
     private LocalDateTime startDate;
     private LocalDate endDate;
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Reservation() {

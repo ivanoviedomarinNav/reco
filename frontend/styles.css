@@ -204,6 +204,24 @@ tbody tr:hover {
     color: #60ff90;
 }
 
+.badge-pending {
+    background: #3d2e00;
+    border: 1px solid #e8a020;
+    color: #ffd060;
+}
+
+.badge-confirmed {
+    background: #003d1a;
+    border: 1px solid #20e870;
+    color: #60ff90;
+}
+
+.badge-canceled {
+    background: #3d1000;
+    border: 1px solid #e85020;
+    color: #ff9060;
+}
+
 .loading {
     text-align: center;
     color: var(--text-secondary);
