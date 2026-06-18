@@ -34,7 +34,7 @@ function renderUsers(users) {
             <td>${u.id}</td>
             <td>${u.name}</td>
             <td>${u.email}</td>
-            <td>${u.role}</td>
+            <td><span class="badge badge-${u.role.toLowerCase()}">${u.role}</span></td>
         </tr>
     `).join('');
 }
