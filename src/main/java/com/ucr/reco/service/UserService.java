@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,21 +17,12 @@ public class UserService {
         return repository.findAll();
     }
 
-    /*
-        public User add(User user){
-            if(repository.existsByEmail(user.getEmail())){
-                return null;
-            }
-            return repository.save(user);
-        }
-    */
     public User add(UserDTO user) {
+        if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getRole() == null) {
+            return null;
+        }
         if (repository.existsByEmail(user.getEmail())) {
             return null;
-        } else {
-            if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getRole() == null) {
-                return null;
-            }
         }
         User userTemporal = new User();
         userTemporal.setName(user.getName());
@@ -40,18 +30,10 @@ public class UserService {
         userTemporal.setPassword(user.getPassword());
         userTemporal.setRole(user.getRole());
         return repository.save(userTemporal);
-        //return "Proceso exitoso";
     }
 
     public User getById(Integer id) {
-        User user = repository.findById(id.intValue());
-        if (user != null) {
-            return user;
-        }
-        /*if (repository.existsById(id)) {
-            return repository.findById(id).get();
-        }*/
-        return null;
+        return repository.findById(id).orElse(null);
     }
 
     public User update(UserDTO user) {
@@ -74,13 +56,12 @@ public class UserService {
     }
 
     public User delete(Integer id) {
-        Optional<User> userExits = repository.findById(id);
-        if (userExits.isPresent()) {
+        User userExits = repository.findById(id).orElse(null);
+        if (userExits != null) {
             repository.deleteById(id);
-            return (User) userExits.get();
-        } else {
-            return null;
+            return userExits;
         }
+        return null;
     }
 
     public User changePassword(String email, String newPassword) {
@@ -88,8 +69,7 @@ public class UserService {
         if (userExits != null) {
             userExits.setPassword(newPassword);
             return repository.save(userExits);
-        } else {
-            return null;
         }
+        return null;
     }
 }
