@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reco - Sistema de Gestión</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Reco</h1>
+            <p>Sistema de Gestión de Espacios</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="feedback"></section>
+
+        <section class="card">
+            <h2>Registrar Usuario</h2>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="userName">Nombre</label>
+                    <input type="text" id="userName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">Correo electrónico</label>
+                    <input type="email" id="userEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">Contraseña</label>
+                    <input type="password" id="userPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="userRole">Rol</label>
+                    <select id="userRole" name="role" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="ADMIN">Administrador</option>
+                        <option value="USER">Usuario</option>
+                    </select>
+                </div>
+                <button type="submit">Registrar Usuario</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Registrar Espacio</h2>
+            <form id="spaceForm">
+                <div class="form-group">
+                    <label for="spaceName">Nombre del espacio</label>
+                    <input type="text" id="spaceName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="spaceLocation">Ubicación</label>
+                    <input type="text" id="spaceLocation" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="spaceType">Tipo</label>
+                    <select id="spaceType" name="type" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="SALA">Sala de reuniones</option>
+                        <option value="OFICINA">Oficina privada</option>
+                        <option value="ESCRITORIO">Escritorio compartido</option>
+                        <option value="AUDITORIO">Auditorio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="spacePrice">Precio por hora ($)</label>
+                    <input type="number" id="spacePrice" name="price" step="0.01" min="0" required>
+                </div>
+                <button type="submit">Registrar Espacio</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Usuarios Registrados</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr><td colspan="4" class="loading">Cargando usuarios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Espacios Registrados</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Ubicación</th>
+                            <th>Tipo</th>
+                            <th>Precio/hora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="spacesTableBody">
+                        <tr><td colspan="5" class="loading">Cargando espacios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Reco - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
