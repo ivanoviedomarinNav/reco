@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS tb_reservation CASCADE;
+DROP TABLE IF EXISTS "tb-reservation" CASCADE;
